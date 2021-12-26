@@ -11,8 +11,13 @@
     // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
     /* Language and Environment */
-    "target": "es5" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "target": "es6" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "lib": [
+      "DOM",
+      "es6",
+      "DOM.Iterable",
+      "ScriptHost"
+    ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
     // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
     // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
@@ -101,8 +106,7 @@
   "exclude": [
     // "**/*.dev.ts" // .dev.ts로 끝나는 파일은 어느 폴더에 있든 제외한다.
     "node_modules" // 기본적으로 제외되어 있다.
-  ],
+  ]
   // tsc 실행시 포함된 값들만 complie한다.
-  "include": []
   // tsc 실행시 포함된 파일들만 complie한다.
 }
