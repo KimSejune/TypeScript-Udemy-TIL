@@ -1,16 +1,18 @@
 class Department {
   // Field Area
-  name: string;
+  // private readonly id: string;
+  // public name: string;
   private employees: string[] = [];
   // Constructor Area
-  constructor(n: string) {
-    this.name = n;
+  constructor(private readonly id: string, public name: string) {
+    // this.id = id;
+    // this.name = n;
   }
 
   // Method Area
   // Param에 this: Department를 추가한다.
   describe(this: Department) {
-    console.log(`Deparmnet: ${this.name}`);
+    console.log(`Deparment (${this.id}): ${this.name}`);
   }
 
   addEmployee(employee: string) {
@@ -23,7 +25,7 @@ class Department {
   }
 }
 
-const account = new Department("Sejune");
+const account = new Department("1", "Sejune");
 
 account.addEmployee("A");
 account.addEmployee("B");
