@@ -1,10 +1,117 @@
-// 느낌표를 붙이면 그 값이 무조건 있다는 것을 의미한다
-const button = document.querySelector("button")!; // DOM 값을 찾아낸다.
+type Admin = {
+  name: string;
+  privileges: string[];
+};
 
-function clickHandler(message: string) {
-  console.log("Clicked!" + message);
+type Employee = {
+  name: string;
+  startDate: Date;
+};
+
+// interface ElevatedEmployee extends Admin, Employee {}
+
+type ElevatedEmployee = Admin & Employee;
+const e1: ElevatedEmployee = {
+  name: "Sejune",
+  privileges: ["create-server"],
+  startDate: new Date(),
+};
+
+type Combinable = string | number;
+type Numeric = number | boolean;
+
+type Universal = Combinable & Numeric;
+
+function add(a: Combinable, b: Combinable) {
+  // type guard
+  if (typeof a === "string" || typeof b === "string") {
+    return a.toString() + b.toString();
+  }
+  return a + b;
 }
 
-if (button) {
-  button.addEventListener("click", clickHandler.bind(null, "ㅁㄴㅇ")); // TypeScript가 버튼을 감지해 낼 수 있을지 확신을 못하여 에러를 표시한다.
+type UnknownEmployee = Employee | Admin;
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+  console.log("Name: ", emp.name);
+  if ("privileges" in emp) {
+    console.log("Privileges: ", emp.privileges);
+  }
+  if ("startDate" in emp) {
+    console.log("startDate: ", emp.startDate);
+  }
+}
+
+printEmployeeInformation(e1);
+
+class Car {
+  drive() {
+    console.log("Driving...");
+  }
+}
+
+class Truck {
+  drive() {
+    console.log("Driving a Truck...");
+  }
+
+  loadCargo(amount: number) {
+    console.log("Loading cargo ...", amount);
+  }
+}
+
+type Vehicle = Car | Truck;
+
+const v1 = new Car();
+const v2 = new Truck();
+
+function useVehicle(vehicle: Vehicle) {
+  vehicle.drive();
+  if (vehicle instanceof Truck) {
+    vehicle.loadCargo(1000);
+  }
+}
+
+useVehicle(v1);
+useVehicle(v2);
+
+interface Bird {
+  type: "bird";
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: "horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  let speed;
+  switch (animal.type) {
+    case "bird":
+      speed = animal.flyingSpeed;
+      break;
+    case "horse":
+      speed = animal.runningSpeed;
+      break;
+    default:
+      speed = 0;
+      break;
+  }
+  console.log("Moving at speed: ", speed);
+}
+
+moveAnimal({ type: "bird", flyingSpeed: 10 });
+
+// const userInputElement = document.getElementById(
+//   "user-input"
+// )! as HTMLInputElement;
+// userInputElement.value = "Hi there!";
+
+// 느낌표를 사용하고 싶지 않다면
+const userInputElement = document.getElementById("user-input");
+if (userInputElement) {
+  (userInputElement as HTMLInputElement).value = "Hi there!";
 }

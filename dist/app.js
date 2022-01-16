@@ -1,9 +1,66 @@
 "use strict";
-const button = document.querySelector("button");
-function clickHandler(message) {
-    console.log("Clicked!" + message);
+const e1 = {
+    name: "Sejune",
+    privileges: ["create-server"],
+    startDate: new Date(),
+};
+function add(a, b) {
+    if (typeof a === "string" || typeof b === "string") {
+        return a.toString() + b.toString();
+    }
+    return a + b;
 }
-if (button) {
-    button.addEventListener("click", clickHandler.bind(null, "ㅁㄴㅇ"));
+function printEmployeeInformation(emp) {
+    console.log("Name: ", emp.name);
+    if ("privileges" in emp) {
+        console.log("Privileges: ", emp.privileges);
+    }
+    if ("startDate" in emp) {
+        console.log("startDate: ", emp.startDate);
+    }
+}
+printEmployeeInformation(e1);
+class Car {
+    drive() {
+        console.log("Driving...");
+    }
+}
+class Truck {
+    drive() {
+        console.log("Driving a Truck...");
+    }
+    loadCargo(amount) {
+        console.log("Loading cargo ...", amount);
+    }
+}
+const v1 = new Car();
+const v2 = new Truck();
+function useVehicle(vehicle) {
+    vehicle.drive();
+    if (vehicle instanceof Truck) {
+        vehicle.loadCargo(1000);
+    }
+}
+useVehicle(v1);
+useVehicle(v2);
+function moveAnimal(animal) {
+    let speed;
+    switch (animal.type) {
+        case "bird":
+            speed = animal.flyingSpeed;
+            break;
+        case "horse":
+            speed = animal.runningSpeed;
+            break;
+        default:
+            speed = 0;
+            break;
+    }
+    console.log("Moving at speed: ", speed);
+}
+moveAnimal({ type: "bird", flyingSpeed: 10 });
+const userInputElement = document.getElementById("user-input");
+if (userInputElement) {
+    userInputElement.value = "Hi there!";
 }
 //# sourceMappingURL=app.js.map
