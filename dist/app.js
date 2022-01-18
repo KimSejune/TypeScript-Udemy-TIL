@@ -1,4 +1,5 @@
 "use strict";
+var _a;
 const e1 = {
     name: "Sejune",
     privileges: ["create-server"],
@@ -10,57 +11,27 @@ function add(a, b) {
     }
     return a + b;
 }
-function printEmployeeInformation(emp) {
-    console.log("Name: ", emp.name);
-    if ("privileges" in emp) {
-        console.log("Privileges: ", emp.privileges);
-    }
-    if ("startDate" in emp) {
-        console.log("startDate: ", emp.startDate);
-    }
-}
-printEmployeeInformation(e1);
-class Car {
-    drive() {
-        console.log("Driving...");
-    }
-}
-class Truck {
-    drive() {
-        console.log("Driving a Truck...");
-    }
-    loadCargo(amount) {
-        console.log("Loading cargo ...", amount);
-    }
-}
-const v1 = new Car();
-const v2 = new Truck();
-function useVehicle(vehicle) {
-    vehicle.drive();
-    if (vehicle instanceof Truck) {
-        vehicle.loadCargo(1000);
-    }
-}
-useVehicle(v1);
-useVehicle(v2);
-function moveAnimal(animal) {
-    let speed;
-    switch (animal.type) {
-        case "bird":
-            speed = animal.flyingSpeed;
-            break;
-        case "horse":
-            speed = animal.runningSpeed;
-            break;
-        default:
-            speed = 0;
-            break;
-    }
-    console.log("Moving at speed: ", speed);
-}
-moveAnimal({ type: "bird", flyingSpeed: 10 });
-const userInputElement = document.getElementById("user-input");
-if (userInputElement) {
-    userInputElement.value = "Hi there!";
-}
+const result = add("Sejune", " Kim");
+result.split(" ");
+const fetchedUserData = {
+    id: "u1",
+    name: "Sejune",
+    job: {
+        title: "CTO",
+        description: "My own company",
+    },
+};
+console.log((_a = fetchedUserData === null || fetchedUserData === void 0 ? void 0 : fetchedUserData.job) === null || _a === void 0 ? void 0 : _a.description);
+const userInput = "";
+const storedData = userInput !== null && userInput !== void 0 ? userInput : "DEFAULT";
+console.log("storedData :", storedData);
+const userInputZero = 0;
+const storedDataZero = userInputZero !== null && userInputZero !== void 0 ? userInputZero : "DEFAULT";
+console.log("storedDataZero :", storedDataZero);
+const userInputNull = null;
+const storedDataNull = userInputNull !== null && userInputNull !== void 0 ? userInputNull : "DEFAULT";
+console.log("storedDataNull :", storedDataNull);
+const userInputUndefined = undefined;
+const storedDataUndefined = userInputUndefined !== null && userInputUndefined !== void 0 ? userInputUndefined : "DEFAULT";
+console.log("storedDataUndefined :", storedDataUndefined);
 //# sourceMappingURL=app.js.map
