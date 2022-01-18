@@ -1,10 +1,27 @@
-// 느낌표를 붙이면 그 값이 무조건 있다는 것을 의미한다
-const button = document.querySelector("button")!; // DOM 값을 찾아낸다.
-
-function clickHandler(message: string) {
-  console.log("Clicked!" + message);
+interface AddFn {
+  (a: number, b: number): number;
 }
 
-if (button) {
-  button.addEventListener("click", clickHandler.bind(null, "ㅁㄴㅇ")); // TypeScript가 버튼을 감지해 낼 수 있을지 확신을 못하여 에러를 표시한다.
+const add: AddFn = (n1: number, n2: number) => {
+  return n1 + n2;
+};
+
+interface Named {
+  readonly name: string;
+  outputName?: string;
 }
+interface Greetable extends Named {
+  greet(phrase: string): void;
+}
+
+class Person implements Greetable {
+  age = 30;
+  constructor(public name: string) {}
+  greet(phrase: string): void {
+    console.log(`class ${phrase} ${this.name}`);
+  }
+}
+
+let user1 = new Person("Sejune");
+user1.name = "Suhyun";
+user1.greet("Hi");

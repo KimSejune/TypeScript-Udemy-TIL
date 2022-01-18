@@ -1,9 +1,17 @@
 "use strict";
-const button = document.querySelector("button");
-function clickHandler(message) {
-    console.log("Clicked!" + message);
+const add = (n1, n2) => {
+    return n1 + n2;
+};
+class Person {
+    constructor(name) {
+        this.name = name;
+        this.age = 30;
+    }
+    greet(phrase) {
+        console.log(`class ${phrase} ${this.name}`);
+    }
 }
-if (button) {
-    button.addEventListener("click", clickHandler.bind(null, "ㅁㄴㅇ"));
-}
+let user1 = new Person("Sejune");
+user1.name = "Suhyun";
+user1.greet("Hi");
 //# sourceMappingURL=app.js.map
