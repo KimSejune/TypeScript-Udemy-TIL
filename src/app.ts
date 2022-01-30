@@ -1,160 +1,48 @@
-type Admin = {
-  name: string;
-  privileges: string[];
-};
+// const names: Array<string> = []; // string[]
+// names[0].split(" ");
 
-type Employee = {
-  name: string;
-  startDate: Date;
-};
+// const promise: Promise<string> = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve("This is End!");
+//   }, 2000);
+// });
 
-// interface ElevatedEmployee extends Admin, Employee {}
+// promise.then((data) => {
+//   data.split(" ");
+// });
 
-type ElevatedEmployee = Admin & Employee;
-const e1: ElevatedEmployee = {
-  name: "Sejune",
-  privileges: ["create-server"],
-  startDate: new Date(),
-};
-
-type Combinable = string | number;
-type Numeric = number | boolean;
-
-type Universal = Combinable & Numeric;
-
-function add(a: number, b: number): number;
-function add(a: string, b: string): string;
-function add(a: number, b: string): string;
-function add(a: string, b: number): string;
-function add(a: Combinable, b: Combinable) {
-  // type guard
-  if (typeof a === "string" || typeof b === "string") {
-    return a.toString() + b.toString();
-  }
-  return a + b;
+// 2개의 객체를 병합하고 새 객체를 반환하는 함수.
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
 }
 
-const result = add("Sejune", " Kim");
-result.split(" ");
+const mergedObj = merge({ name: "Max", hobbies: ["Sports"] }, { age: 30 });
+console.log(mergedObj);
 
-const fetchedUserData = {
-  id: "u1",
-  name: "Sejune",
-  job: {
-    title: "CTO",
-    description: "My own company",
-  },
-};
-console.log(fetchedUserData?.job?.description);
+interface Lengthy {
+  length: number;
+}
 
-const userInput = "";
-const storedData = userInput ?? "DEFAULT";
-console.log("storedData :", storedData);
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let descriptionText = "Got no value.";
+  if (element.length === 1) {
+    descriptionText = "Got 1 element.";
+  } else if (element.length > 1) {
+    descriptionText = `Got ${element.length} elements.`;
+  }
 
-const userInputZero = 0;
-const storedDataZero = userInputZero ?? "DEFAULT";
-console.log("storedDataZero :", storedDataZero);
+  return [element, descriptionText];
+}
 
-const userInputNull = null;
-const storedDataNull = userInputNull ?? "DEFAULT";
-console.log("storedDataNull :", storedDataNull);
+console.log(countAndDescribe("Hi there!"));
+console.log(countAndDescribe(["Sports", "Cooking"]));
+// console.log(countAndDescribe(10); // number은 length property가 없어서 호출되지 않는다.
 
-const userInputUndefined = undefined;
-const storedDataUndefined = userInputUndefined ?? "DEFAULT";
-console.log("storedDataUndefined :", storedDataUndefined);
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return obj[key];
+}
 
-// type UnknownEmployee = Employee | Admin;
-
-// function printEmployeeInformation(emp: UnknownEmployee) {
-//   console.log("Name: ", emp.name);
-//   if ("privileges" in emp) {
-//     console.log("Privileges: ", emp.privileges);
-//   }
-//   if ("startDate" in emp) {
-//     console.log("startDate: ", emp.startDate);
-//   }
-// }
-
-// printEmployeeInformation(e1);
-
-// class Car {
-//   drive() {
-//     console.log("Driving...");
-//   }
-// }
-
-// class Truck {
-//   drive() {
-//     console.log("Driving a Truck...");
-//   }
-
-//   loadCargo(amount: number) {
-//     console.log("Loading cargo ...", amount);
-//   }
-// }
-
-// type Vehicle = Car | Truck;
-
-// const v1 = new Car();
-// const v2 = new Truck();
-
-// function useVehicle(vehicle: Vehicle) {
-//   vehicle.drive();
-//   if (vehicle instanceof Truck) {
-//     vehicle.loadCargo(1000);
-//   }
-// }
-
-// useVehicle(v1);
-// useVehicle(v2);
-
-// interface Bird {
-//   type: "bird";
-//   flyingSpeed: number;
-// }
-
-// interface Horse {
-//   type: "horse";
-//   runningSpeed: number;
-// }
-
-// type Animal = Bird | Horse;
-
-// function moveAnimal(animal: Animal) {
-//   let speed;
-//   switch (animal.type) {
-//     case "bird":
-//       speed = animal.flyingSpeed;
-//       break;
-//     case "horse":
-//       speed = animal.runningSpeed;
-//       break;
-//     default:
-//       speed = 0;
-//       break;
-//   }
-//   console.log("Moving at speed: ", speed);
-// }
-
-// moveAnimal({ type: "bird", flyingSpeed: 10 });
-
-// // const userInputElement = document.getElementById(
-// //   "user-input"
-// // )! as HTMLInputElement;
-// // userInputElement.value = "Hi there!";
-
-// // 느낌표를 사용하고 싶지 않다면
-// const userInputElement = document.getElementById("user-input");
-// if (userInputElement) {
-//   (userInputElement as HTMLInputElement).value = "Hi there!";
-// }
-
-// interface ErrorContainer {
-//   // { email, 'Not a valid email', username: 'Must start with a character!}
-//   [prop: string]: string;
-// }
-
-// const errorBag: ErrorContainer = {
-//   email: "Not a valid email",
-//   username: "Must start with a character!",
-// };
+console.log(extractAndConvert({ name: "Sejune" }, "name"));
