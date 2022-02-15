@@ -46,3 +46,63 @@ function extractAndConvert<T extends object, U extends keyof T>(
 }
 
 console.log(extractAndConvert({ name: "Sejune" }, "name"));
+
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    // T이 object, array이면 indexof가 동작하지 않는다.
+    // JS는 주소를 찾아보지만 찾을 수 없어서 (-1)이 리턴되어 마지막값을 지워버린다.
+    if (this.data.indexOf(item) === -1) {
+      return;
+    }
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem("Max");
+textStorage.addItem("Menu");
+textStorage.removeItem("max");
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+
+// const objStorage = new DataStorage<object>();
+// const maxObj = { name: "Max" };
+// objStorage.addItem(maxObj);
+// objStorage.addItem({ name: "Menu" });
+// objStorage.removeItem(maxObj);
+// console.log(objStorage.getItems());
+// {
+//   "name": "Max"
+// }
+
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal(
+  title: string,
+  description: string,
+  date: Date
+): CourseGoal {
+  let courseGoal: Partial<CourseGoal> = {};
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+  return courseGoal as CourseGoal;
+}
+
+const names: Readonly<string[]> = ["Max", "Sports"];
+// names.push("Menu");
