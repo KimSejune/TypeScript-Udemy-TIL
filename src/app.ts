@@ -38,6 +38,28 @@ function Log(target: any, propertyName: string | Symbol) {
   console.log("Property decorator!");
   console.log(target, propertyName);
 }
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log("Accessor decorator!");
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log3(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log("Method decorator!");
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log4(target: any, name: string, position: number) {
+  console.log("Parameter decorator!");
+  console.log(target);
+  console.log(name);
+  console.log(position); // index
+}
+
 class Product {
   @Log
   title: string;
@@ -48,7 +70,7 @@ class Product {
     this.title = t;
     this._price = p;
   }
-  @Log
+  @Log2
   set price(val: number) {
     if (val > 0) {
       this._price = val;
@@ -56,8 +78,8 @@ class Product {
       throw new Error("Invalid Prive - should be positive!");
     }
   }
-  @Log
-  getPriceWithTax(tax: number) {
+  @Log3
+  getPriceWithTax(@Log4 tax: number) {
     return this._price * (1 + tax);
   }
 }
