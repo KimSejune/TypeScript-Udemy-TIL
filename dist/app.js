@@ -38,8 +38,6 @@ Person = __decorate([
     Logger("LOGGING"),
     WithTemplate("<h1>My Person Object</h1>", "app")
 ], Person);
-const person = new Person();
-console.log(person);
 function Log(target, propertyName) {
     console.log("Property decorator!");
     console.log(target, propertyName);
@@ -49,12 +47,14 @@ function Log2(target, name, descriptor) {
     console.log(target);
     console.log(name);
     console.log(descriptor);
+    return {};
 }
 function Log3(target, name, descriptor) {
     console.log("Method decorator!");
     console.log(target);
     console.log(name);
     console.log(descriptor);
+    return {};
 }
 function Log4(target, name, position) {
     console.log("Parameter decorator!");

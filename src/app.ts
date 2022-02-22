@@ -6,6 +6,23 @@ function Logger(logString: string) {
     console.log(constructor);
   };
 }
+// return function <T extends { new (...args: any[]): { name: string } }>(
+//   originalConstructor: T
+// ) {
+//   console.log("Rendering template");
+
+//   return class extends originalConstructor {
+//     constructor(..._: any[]) {
+//       super(); // original funciton, class 저장.
+
+//       const hookEl = document.getElementById(hookId);
+//       if (hookEl) {
+//         hookEl.innerHTML = template;
+//         hookEl.querySelector("h1")!.textContent = this.name;
+//       }
+//     }
+//   };
+// };
 
 function WithTemplate(template: string, hookId: string) {
   console.log("TEMPLATE FACTORY");
@@ -29,9 +46,9 @@ class Person {
   }
 }
 
-const person = new Person();
+// const person = new Person();
 
-console.log(person);
+// console.log(person);
 
 // target => Property Target을 나타내며 object 구조를 가진다
 function Log(target: any, propertyName: string | Symbol) {
@@ -39,18 +56,28 @@ function Log(target: any, propertyName: string | Symbol) {
   console.log(target, propertyName);
 }
 
-function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+function Log2(
+  target: any,
+  name: string,
+  descriptor: PropertyDescriptor
+): PropertyDescriptor {
   console.log("Accessor decorator!");
   console.log(target);
   console.log(name);
   console.log(descriptor);
+  return {}; // set, get, enumerable, configurable 수정해서 반환가능하다.
 }
 
-function Log3(target: any, name: string, descriptor: PropertyDescriptor) {
+function Log3(
+  target: any,
+  name: string,
+  descriptor: PropertyDescriptor
+): PropertyDescriptor {
   console.log("Method decorator!");
   console.log(target);
   console.log(name);
   console.log(descriptor);
+  return {}; // enumerable, configurable, value, writable 수정해서 반환가능하다.
 }
 
 function Log4(target: any, name: string, position: number) {
